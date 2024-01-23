@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Home.css';
 import axios from '../../../axios';
 import User from '../../Ui/User';
@@ -52,4 +52,4 @@ function Home() {
   )
 }
 
-export default Home
+export default Home;
