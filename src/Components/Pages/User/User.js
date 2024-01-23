@@ -23,7 +23,7 @@ const User = () => {
     }
    }
    fetchUserInformation();
-  }, [login])
+  })
 
   return (
     <div className='container'>
