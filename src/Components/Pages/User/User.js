@@ -31,7 +31,7 @@ const User = () => {
         <br />
        <div className='user-information'>
          <div className='image'>
-          <img src={userInfo?.avatar_url} />
+          <img src={userInfo?.avatar_url} alt=""/>
          </div>
          <div className='user-content'>
            <h2>{userInfo?.name}</h2>
@@ -42,7 +42,7 @@ const User = () => {
            <div className='more-data'>
             <p>
             {userInfo?.followers} Followers.
-            Following {userInfo?. following}
+            Following {userInfo?.following}
             </p>
             {userInfo?.location && <p>
             <strong>Location: </strong>   {userInfo?.location}
