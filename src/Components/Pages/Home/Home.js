@@ -7,38 +7,15 @@ function Home() {
 
   const [ query, setQuery ] = useState("");
   const [ users, setUsers ] = useState([]);
-  const [ page, setPage ]   = useState(1);
-  const [ limit, setLimit ] = useState(10);
 
   const handleQueryInput = (e) => {
       const value = e.target.value;
       setQuery(value);
   }
-  
-  const handlePrevPage = () => {
-    setPage(page => {
-      if(page === 1) return page;
-      else return page - 1;
-    })
-  }
-
-  const handleNextPage = () => {
-    setPage (page => page + 1);
-  }
-
-  const handlePageLimit = (e) => {
-    const value = e.target.value;
-    setLimit(parseInt(value));
-  }
 
   const fetchUsers = async () => {
     try{
-     const { data } = await axios.get("/search/users?q=" + query, {
-      params : {
-        page,
-        per_page: limit
-      }
-     });
+     const { data } = await axios.get("/search/users?q=" + query);
      return data?.items;
     }catch(err){
      console.log(err);
@@ -56,15 +33,6 @@ function Home() {
     }
   }
 
-  useEffect(() => {
-    const displayUsersOnChange = async () => {
-      if(query) {
-        const items = await fetchUsers();
-        setUsers(items);
-      }
-    }
-    displayUsersOnChange();
-  }, [page, limit])
 
   return (
     <div className='container'>
@@ -76,21 +44,6 @@ function Home() {
         </form>
       </div>
       <div className='search-results'>
-      <div className='more-options'>
-      <label>
-        <small>Per Page</small>
-        <select onChange={handlePageLimit}>
-          <option value={10}>10</option>
-          <option value={20}>20</option>
-          <option value={50}>50</option>
-          <option value={100}>100</option>
-        </select>
-      </label>
-      <div className='pagination'>
-      <button onClick={handlePrevPage}>{page}</button>
-      <button onClick={handleNextPage}>{page + 1}</button>
-      </div>
-      </div>
       { users ? users.map(user => {
         return <User user = {user} key={user.id} />
       }) : <h2>There is nothing to show..</h2> }
